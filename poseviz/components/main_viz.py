@@ -40,4 +40,6 @@ class MainViz:
         if gt_poses is not None:
             self.skeletons_gt.update(gt_poses)
 
-        self.camera_viz.update(camera_display, image)
+        # Poseviz 창 내에서 카메라를 함께 보여주는 기능이다.
+        # 이 부분을 주석처리하면 pure skeleton만 확인이 가능하다.
+        # self.camera_viz.update(camera_display, image)
