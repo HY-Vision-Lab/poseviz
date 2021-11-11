@@ -6,7 +6,8 @@ def main_video_writer(q_out_video_frames):
     writer_kwargs = dict(codec='h264', ffmpeg_params=['-crf', '18'], macro_block_size=None)
     writer = None
 
-    while (frame := q_out_video_frames.get()) != 'stop_video_writing':
+    frame = q_out_video_frames.get()
+    while frame != 'stop_video_writing':
         # A tuple of a path and fps signifies that we need to start a new video
         if isinstance(frame, tuple):
             video_path, fps = frame
@@ -18,6 +19,7 @@ def main_video_writer(q_out_video_frames):
         elif writer is not None:
             writer.append_data(frame)
             q_out_video_frames.task_done()
+        frame = q_out_video_frames.get()
 
     if writer is not None:
         writer.close()
